@@ -2,7 +2,7 @@ from bdfa import *
 import sys
 
 def createAutomaton():
-	print(sys.argv[1])
+
 	f = open(sys.argv[1], "r")
 
 	nStates, nTransitions = map(int, f.readline().strip().split())
@@ -32,11 +32,19 @@ def createAutomaton():
 
 	return aut
 
+def readTape():
+	f = open(sys.argv[2], "r")
+
+	string = f.readline().strip()
+	tape = Tape(string)
+
+	return tape
+
 if __name__ == "__main__":
     #read file and create automaton
     automaton = createAutomaton()
     #read tape
-    #tape = readTape()
-    #automaton.setTape(tape)
+    tape = readTape()
+    automaton.setTape(tape)
     #simulate
     #automaton.simulate()
