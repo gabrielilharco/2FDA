@@ -1,0 +1,20 @@
+--------------------------------------
+Beginning computation
+
+Tape position: 0, State: 0
+    -Tape direction: RIGHT
+Tape position: 1, State: 1
+    -Tape direction: RIGHT
+Tape position: 2, State: 1
+
+Reached a loop. Computation stopped.
+--------------------------------------
+Beginning computation
+
+Tape position: 0, State: 0
+    -Tape direction: RIGHT
+Tape position: 1, State: 1
+    -Tape direction: RIGHT
+Tape position: 2, State: 1
+
+Reached a loop. Computation stopped.

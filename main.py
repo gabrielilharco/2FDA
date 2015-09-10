@@ -12,7 +12,7 @@ def createAutomaton():
 	for i in range (0, nStates):
 		line = f.readline().strip().split()
 		value = line[0]
-		accepted = bool(line[1])
+		accepted = bool(int(line[1]))
 		state = State(value, accepted)
 		aut.addState(state)
 
@@ -47,4 +47,4 @@ if __name__ == "__main__":
     tape = readTape()
     automaton.setTape(tape)
     #simulate
-    #automaton.simulate()
+    automaton.simulate()

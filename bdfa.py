@@ -31,22 +31,24 @@ class Tape():
 		self.cells    = cells
 		self.position = 0
 
+	def reachEnd(self):
+		return self.position < 0 or self.position >= len(self.cells)
+
 	def head(self):
-		return self.cells[position]
+		if self.reachEnd():
+			return -1
+		return self.cells[self.position]
 
 	def reset (self):
 		self.position = 0
 
 	def headPosition(self):
 		return self.position
-
-	def reachEnd(self):
-		self.position == -1 or self.position == len(self.cells)
 	
 	def update(self, direction):
 		if self.reachEnd():
 			raise Exception('End of computation.')
-		if self.direction == Transition.Direction.RIGHT:
+		if direction == Transition.Direction.RIGHT:
 			self.position += 1
 		else:
 			self.position -= 1
@@ -79,36 +81,42 @@ class Automaton():
 		self.currentState = self.initialState
 		self.tape.reset()
 		self.simulating = True
+		self.visited = {(self.currentState.value, self.tape.headPosition())}
+		return "Tape position: " + str(self.tape.headPosition()) + ", State: " + self.currentState.value + "\n"
 
 	def getState (self, stateValue):
 		return self.states[stateValue]
 
 	def simulateStep(self):
-		if not simulating:
-			return "Simulation has stopped.\n"
+		if not self.simulating:
+			return "Computation has stopped.\n"
 		self.currentState, self.direction = self.currentState.step(self.tape.head())
-		self.tape.update(direction)
-		if (self.currentState, self.tape.headPosition()) in visited:
-			# infinite loop, end simulation
+		self.tape.update(self.direction)
+		if (self.currentState.value, self.tape.headPosition()) in self.visited:
+			# infinite loop, end computation
 			self.simulating = False
-			return "Reached a loop. Simulation stopped.\n"
+			return "\nReached a loop. Computation stopped.\n"
 		elif self.tape.reachEnd():
-			# end of tape, end simulation
+			# end of tape, end computation
 			self.simulating = False
-			if self.currentState.accept:
-				return "End of simulation. Tape accepted.\n"
+			log = "    -Tape direction: " + self.direction.name  + "\n"
+			log += "Tape position: " + str(self.tape.headPosition()) + ", State: " + self.currentState.value + "\n"
+			if self.currentState.accept: 
+				return log + "\nEnd of computation. Tape accepted.\n"
 			else:
-				return "End of simulation. Tape not accepted.\n"
+				return log + "\nEnd of computation. Tape not accepted.\n"
 		else:
-			visited.add((self.currentState, self.tape.headPosition))
-			return "Position: " + str(self.tape.headPosition()) + ", Direction " + self.direction.name + ", State: " + self.currentState.value + "\n"
+			self.visited.add((self.currentState.value, self.tape.headPosition()))
+			log = "    -Tape direction: " + self.direction.name  + "\n"
+			log += "Tape position: " + str(self.tape.headPosition()) + ", State: " + self.currentState.value + "\n"
+			return log
 
 	def simulate(self):
 		f = open("log.txt", "a")
 		f.write("--------------------------------------\n")
-		f.write("Beginning simulation\n\n");
-		self.startOver()
-		while simulating:
-			logEntry = simulateStep()
+		f.write("Beginning computation\n\n")
+		f.write(self.startOver())
+		while self.simulating:
+			logEntry = self.simulateStep()
 			f.write(logEntry);
 
