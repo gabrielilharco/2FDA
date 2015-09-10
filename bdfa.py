@@ -11,7 +11,7 @@ class State():
 
 	def step(self, symbol):
 		try:
-			transition = transitions[symbol]
+			transition = self.transitions[symbol]
 			return transition.nextState, transition.direction
 		except KeyError as e:
 			raise e
@@ -32,24 +32,24 @@ class Tape():
 		self.position = 0
 
 	def head(self):
-		return cells[position]
+		return self.cells[position]
 
 	def reset (self):
-		position = 0
+		self.position = 0
 
 	def headPosition(self):
-		return position
+		return self.position
 
 	def reachEnd(self):
-		position == -1 or position == len(cells)
+		self.position == -1 or self.position == len(self.cells)
 	
 	def update(self, direction):
-		if reachEnd():
+		if self.reachEnd():
 			raise Exception('End of computation.')
-		if direction == Transition.Direction.RIGHT:
-			position += 1
+		if self.direction == Transition.Direction.RIGHT:
+			self.position += 1
 		else:
-			position -= 1
+			self.position -= 1
 
 
 
