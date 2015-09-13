@@ -1,20 +1,16 @@
---------------------------------------
 Beginning computation
 
-Tape position: 0, State: 0
-    -Tape direction: RIGHT
-Tape position: 1, State: 1
-    -Tape direction: RIGHT
-Tape position: 2, State: 1
+0babaab
+b1abaab
+ba1baab
+b2abaab
+ba0baab
+bab1aab
+baba1ab
+babaa1b
+baba2ab
+babaa0b
+babaab1
 
-Reached a loop. Computation stopped.
+End of computation. Tape not accepted.
 --------------------------------------
-Beginning computation
-
-Tape position: 0, State: 0
-    -Tape direction: RIGHT
-Tape position: 1, State: 1
-    -Tape direction: RIGHT
-Tape position: 2, State: 1
-
-Reached a loop. Computation stopped.

@@ -82,7 +82,7 @@ class Automaton():
 		self.tape.reset()
 		self.simulating = True
 		self.visited = {(self.currentState.value, self.tape.headPosition())}
-		return "Tape position: " + str(self.tape.headPosition()) + ", State: " + self.currentState.value + "\n"
+		return self.initialState.value + self.tape.cells + "\n"
 
 	def getState (self, stateValue):
 		return self.states[stateValue]
@@ -99,24 +99,22 @@ class Automaton():
 		elif self.tape.reachEnd():
 			# end of tape, end computation
 			self.simulating = False
-			log = "    -Tape direction: " + self.direction.name  + "\n"
-			log += "Tape position: " + str(self.tape.headPosition()) + ", State: " + self.currentState.value + "\n"
+			log = self.tape.cells[:self.tape.headPosition()] + self.currentState.value + self.tape.cells[self.tape.headPosition():]+"\n"
 			if self.currentState.accept: 
 				return log + "\nEnd of computation. Tape accepted.\n"
 			else:
 				return log + "\nEnd of computation. Tape not accepted.\n"
 		else:
 			self.visited.add((self.currentState.value, self.tape.headPosition()))
-			log = "    -Tape direction: " + self.direction.name  + "\n"
-			log += "Tape position: " + str(self.tape.headPosition()) + ", State: " + self.currentState.value + "\n"
+			log = self.tape.cells[:self.tape.headPosition()] + self.currentState.value + self.tape.cells[self.tape.headPosition():]+"\n"
 			return log
 
 	def simulate(self):
 		f = open("log.txt", "a")
-		f.write("--------------------------------------\n")
 		f.write("Beginning computation\n\n")
 		f.write(self.startOver())
 		while self.simulating:
 			logEntry = self.simulateStep()
 			f.write(logEntry);
+		f.write("--------------------------------------\n")
 
