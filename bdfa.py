@@ -95,7 +95,8 @@ class Automaton():
 		if (self.currentState.value, self.tape.headPosition()) in self.visited:
 			# infinite loop, end computation
 			self.simulating = False
-			return "\nReached a loop. Computation stopped.\n"
+			log = self.tape.cells[:self.tape.headPosition()] + self.currentState.value + self.tape.cells[self.tape.headPosition():]+"\n"
+			return log + "\nReached a loop. Computation stopped.\n"
 		elif self.tape.reachEnd():
 			# end of tape, end computation
 			self.simulating = False

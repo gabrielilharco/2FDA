@@ -3,14 +3,7 @@ Beginning computation
 0babaab
 b1abaab
 ba1baab
-b2abaab
-ba0baab
-bab1aab
-baba1ab
-babaa1b
-baba2ab
-babaa0b
-babaab1
+b1abaab
 
-End of computation. Tape not accepted.
+Reached a loop. Computation stopped.
 --------------------------------------
